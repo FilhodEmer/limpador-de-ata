@@ -1,6 +1,7 @@
 from pathlib import Path
 
 def file_input():
+    '''Função para leitura do arquivo e preparação do conteúdo.'''
     vector = list()
     for file in list(Path('.').rglob('*.vtt')):
         print('{}: {}'.format(len(vector) + 1, file.name))
@@ -14,11 +15,12 @@ def file_input():
     return ata_tuples
 
 def transcription_cleaner(tup):
+    '''Remoção das linhas indesejadas e gravação no arquivo de saída.'''
     out = list()
     for i in tup:
         if 5 > len(i) > 2:
             out.append((i[2], i[3]) if len(i) == 4 else (i[2],))
-    with open('saida1.txt', 'w', encoding='UTF-8') as output:
+    with open('saida2.txt', 'w', encoding='UTF-8') as output:
         for transcription in out:
             for line in range(len(transcription)):
                 output.write('{}\n'.format(transcription[line]))
