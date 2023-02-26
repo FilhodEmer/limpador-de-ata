@@ -12,15 +12,15 @@ def file_input():
         ata_out = f.read()
     line_block = ata_out.split('\n\n')
     ata_tuples = [(tuple(block.strip().split('\n'))) for block in line_block]
-    return ata_tuples
+    return ata_tuples, select[:-4]
 
-def transcription_cleaner(tup):
+def transcription_cleaner(tup, name_out=''):
     '''Remoção das linhas indesejadas e gravação no arquivo de saída.'''
     out = list()
     for i in tup:
         if 5 > len(i) > 2:
             out.append((i[2], i[3]) if len(i) == 4 else (i[2],))
-    with open('saida2.txt', 'w', encoding='UTF-8') as output:
+    with open('(Limpo) {}.txt'.format(name_out), 'w', encoding='UTF-8') as output:
         for transcription in out:
             for line in range(len(transcription)):
                 output.write('{}\n'.format(transcription[line]))
@@ -28,5 +28,5 @@ def transcription_cleaner(tup):
 
 if __name__ == '__main__':
     file = file_input()
-    clean = transcription_cleaner(file)
+    clean = transcription_cleaner(file[0], name_out=file[1])
     print('Limpeza concluída.')
